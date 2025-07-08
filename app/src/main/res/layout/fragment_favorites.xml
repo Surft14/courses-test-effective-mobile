@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_light"
-    tools:context=".ui.fragment.HomeFragment">
+    tools:context=".ui.fragment.FavoritesFragment">
 
-
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="Hello this is Home Fragment"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello this is Favorites Fragment"
+        android:textColor="@color/white" />
+
 </FrameLayout>
