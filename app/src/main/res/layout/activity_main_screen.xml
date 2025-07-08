@@ -6,13 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_light"
-    tools:context=".HomeScreenActivity">
+    tools:context=".MainScreenActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/black_light_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemTextColor="@color/bottom_nav_icon_color"
+        />
+
+    <FrameLayout
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="409dp"
+        android:layout_height="649dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
