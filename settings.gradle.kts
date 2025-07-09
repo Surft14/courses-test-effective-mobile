@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AppСourses"
 include(":app")
+include(":data")

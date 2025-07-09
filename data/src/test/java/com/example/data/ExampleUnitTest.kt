@@ -1,4 +1,4 @@
-package com.example.appourses
+package com.example.data
 
 import org.junit.Test
 

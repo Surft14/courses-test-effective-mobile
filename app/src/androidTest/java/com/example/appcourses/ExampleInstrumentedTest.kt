@@ -1,4 +1,4 @@
-package com.example.appourses
+package com.example.appcourses
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
