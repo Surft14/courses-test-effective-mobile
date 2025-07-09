@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import com.example.data.database.db.app.AppDatabase
 
+//Через него получаем доступ к базе и инициализируем базу данных
 object DatabaseProvider {
     private var instance: AppDatabase? = null
 
@@ -16,7 +17,7 @@ object DatabaseProvider {
                 Log.d("MyLog", "DatabaseProvider: start databaseBuilder")
                 instance = Room.databaseBuilder(// Создание экземпляра базы данных
                     context.applicationContext,// Использует глобальный контекст приложения
-                    AppDatabase::class.java, // Указывает класс базы данных
+                    AppDatabase::class.java, // Указывает класс базы данных т.е. какие у него таблицы
                     "courses_db",// Имя базы данных
                 )
                     .fallbackToDestructiveMigration()

@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+//Таблица с курсами в бд Room
 @Entity(tableName = "courses")
 data class CourseEntity(
     @PrimaryKey(autoGenerate = true)val id: Int? = null,
