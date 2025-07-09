@@ -10,7 +10,7 @@ import com.example.data.database.db.courses.model.CourseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CourseDAO {
+interface CourseDao {
 
     //Для получени всех курсов из бд
     @Query("SELECT * FROM courses")
