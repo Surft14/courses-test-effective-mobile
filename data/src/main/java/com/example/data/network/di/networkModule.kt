@@ -1,5 +1,6 @@
-package com.example.data.network
+package com.example.data.network.di
 
+import com.example.data.network.CourseApi
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package com.example.data.database.db
+package com.example.data.database.db.di
 
 import com.example.data.database.db.courses.dao.CourseDao
 import com.example.data.database.db.provider.DatabaseProvider

@@ -1,10 +1,10 @@
 package com.example.appсourses
 
 import android.app.Application
-import com.example.data.database.db.databaseModule
+import com.example.data.database.db.di.databaseModule
 import com.example.data.database.db.provider.DatabaseProvider
-import com.example.data.network.networkModule
-import com.example.data.repository.impl.repositoryModule
+import com.example.data.network.di.networkModule
+import com.example.data.repository.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 

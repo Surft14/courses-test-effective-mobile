@@ -1,7 +1,5 @@
 package com.example.data.network
 
-import com.example.data.dto.model.CourseDto
-import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 
