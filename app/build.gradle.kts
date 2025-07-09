@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    implementation(":data")
+    implementation(project(":data"))
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)

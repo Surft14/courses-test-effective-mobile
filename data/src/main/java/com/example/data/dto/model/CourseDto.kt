@@ -1,5 +1,6 @@
 package com.example.data.dto.model
 
+// JSON-модель
 data class CourseDto(
     val id: Int,
     val title: String,
