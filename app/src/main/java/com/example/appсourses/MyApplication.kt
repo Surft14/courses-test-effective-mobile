@@ -1,6 +1,7 @@
 package com.example.appсourses
 
 import android.app.Application
+import com.example.appсourses.viewmodel.di.viewModelModule
 import com.example.data.database.db.di.databaseModule
 import com.example.data.database.db.provider.DatabaseProvider
 import com.example.data.network.di.networkModule
@@ -21,6 +22,7 @@ class MyApplication: Application() {
                 networkModule,
                 repositoryModule,
                 databaseModule,
+                viewModelModule,
             )
         }
     }
