@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_light"
-    tools:context=".ui.activity.EntryActivity">
+    tools:context="com.example.appсourses.ui.activity.EntryActivity">
 
     <TextView
         android:id="@+id/titleEntry"
@@ -129,7 +129,7 @@
 
 
     <ImageButton
-        android:id="@+id/ibVk"
+        android:id="@+id/ibVK"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
