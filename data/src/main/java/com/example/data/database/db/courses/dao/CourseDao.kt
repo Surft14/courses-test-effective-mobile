@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface CourseDao {
 
     //Для получени всех курсов из бд
-    @Query("SELECT * FROM courses")
+    @Query("SELECT * FROM courses ORDER BY publishDate ASC")
     fun getAllCurses(): Flow<List<CourseEntity>>
 
 

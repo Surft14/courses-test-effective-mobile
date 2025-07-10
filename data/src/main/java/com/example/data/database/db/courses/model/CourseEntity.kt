@@ -2,7 +2,7 @@ package com.example.data.database.db.courses.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.data.dto.model.CourseDto
+import com.example.data.dto.model.Course
 import java.io.Serializable
 
 //Таблица с курсами в бд Room
@@ -19,7 +19,7 @@ data class CourseEntity(
 ): Serializable
 
 //Функция для конвертации
-fun CourseEntity.toDto(): CourseDto = CourseDto(
+fun CourseEntity.toDto(): Course = Course(
     id = id ?: 0,
     title = title,
     text = text,

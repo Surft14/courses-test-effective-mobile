@@ -1,13 +1,11 @@
 package com.example.data.dto.model
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.data.database.db.courses.model.CourseEntity
 import java.time.LocalDate
 import java.time.ZoneId
 
 // JSON-модель
-data class CourseDto(
+data class Course(
     val id: Int,
     val title: String,
     val text: String,
@@ -18,7 +16,7 @@ data class CourseDto(
     val publishDate: String
 )
 
-fun CourseDto.toEntity(): CourseEntity = CourseEntity(
+fun Course.toEntity(): CourseEntity = CourseEntity(
     id = id ?: 0,
     title = title,
     text = text,
