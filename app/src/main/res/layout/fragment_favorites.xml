@@ -6,11 +6,27 @@
     android:background="@color/black_light"
     tools:context=".ui.fragment.FavoritesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello this is Favorites Fragment"
-        android:textColor="@color/white" />
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvFavorite"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_weight="1"
+            android:text="Избранное"
+            android:textColor="@color/white"
+            android:textSize="34sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 </FrameLayout>
