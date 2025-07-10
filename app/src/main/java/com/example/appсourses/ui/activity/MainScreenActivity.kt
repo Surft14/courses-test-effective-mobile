@@ -10,7 +10,6 @@ import com.example.appcourses.databinding.ActivityMainScreenBinding
 import com.example.appcourses.ui.fragment.AccountFragment
 import com.example.appcourses.ui.fragment.FavoritesFragment
 import com.example.appcourses.ui.fragment.HomeFragment
-import com.example.appсourses.viewmodel.CourseViewModel
 import com.example.appсourses.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
