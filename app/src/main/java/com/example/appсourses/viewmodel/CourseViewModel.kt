@@ -33,7 +33,7 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getCursesFromAPI() {
         viewModelScope.launch {
             try {
-                val list = courseRepository.getCourses()
+                val list =  courseRepository.getCourses()
                 _listCourses.value = list.first()
                 for (course in _listCourses.value){
                     courseRepository.insertCourse(course)
@@ -48,8 +48,10 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getCoursesFromDB(){
         viewModelScope.launch {
             try {
-                val list = courseRepository.getAllCourses()
-                _listCourses.value = list.first()
+                courseRepository.getAllCourses()
+                    .collect { list ->
+                    _listCourses.value = list
+                }
             }catch (e: Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
             }
@@ -60,8 +62,10 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getFavoriteCourses(){
         viewModelScope.launch {
             try{
-                val list = courseRepository.getFavoriteCourses()// <- берет из кэша / локальной базы данных
-                _listCourses.value = list.first()
+                courseRepository.getFavoriteCourses()// <- берет из кэша / локальной базы данных
+                    .collect { list ->
+                        _listCourses.value = list
+                    }
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
             }
@@ -72,8 +76,10 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getCoursesFromDBOrderByDESC(){
         viewModelScope.launch {
             try{
-                val list = courseRepository.getCoursesSortedByDateDesc()// <- берет из кэша / локальной базы данных
-                _listCourses.value = list.first()
+                courseRepository.getCoursesSortedByDateDesc()// <- берет из кэша / локальной базы данных
+                    .collect { list ->
+                        _listCourses.value = list
+                    }
                 _isAsc.value = false
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
@@ -85,8 +91,10 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getCoursesFromDBOrderByASC(){
         viewModelScope.launch {
             try{
-                val list = courseRepository.getCoursesSortedByDateAsc()// <- берет из кэша / локальной базы данных
-                _listCourses.value = list.first()
+                courseRepository.getCoursesSortedByDateAsc()// <- берет из кэша / локальной базы данных
+                    .collect { list ->
+                        _listCourses.value = list
+                    }
                 _isAsc.value = true
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
@@ -98,8 +106,10 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     fun getCoursesSearch(search: String){
         viewModelScope.launch {
             try{
-                val list = courseRepository.getBySearchQuery(search)// <- берет из кэша / локальной базы данных
-                _listCourses.value = list.first()
+               courseRepository.getBySearchQuery(search)// <- берет из кэша / локальной базы данных
+                    .collect { list ->
+                        _listCourses.value = list
+                    }
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
             }
