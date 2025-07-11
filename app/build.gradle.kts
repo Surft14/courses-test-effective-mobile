@@ -66,6 +66,7 @@ dependencies {
     // UI
     implementation(libs.recyclerview)
     implementation(libs.adapterdelegates)
+    implementation(libs.adapterdelegates.viewbinding)
 
     testImplementation(libs.junit)
 

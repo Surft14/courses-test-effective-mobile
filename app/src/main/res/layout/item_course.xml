@@ -86,14 +86,15 @@
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/bFavorite"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_gravity="top|end"
                 android:layout_margin="8dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/black_light_light_info"
-                android:src="@drawable/ic_bookmark"
-                android:layout_gravity="top|end"
-                android:contentDescription="Избранное" />
+                android:contentDescription="Избранное"
+                android:src="@drawable/ic_bookmark" />
 
         </FrameLayout>
 

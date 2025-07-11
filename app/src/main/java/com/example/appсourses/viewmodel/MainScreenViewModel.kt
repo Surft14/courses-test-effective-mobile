@@ -11,6 +11,7 @@ class MainScreenViewModel : ViewModel() {
         HOME,
         FAVORITE,
         ACCOUNT,
+        COURSE,
     }
 
     private val _screen = MutableStateFlow(Screen.HOME)
@@ -23,6 +24,10 @@ class MainScreenViewModel : ViewModel() {
             R.id.nav_account -> Screen.ACCOUNT
             else -> Screen.HOME
         }
+    }
+
+    fun itemSelected(screen: Screen){
+        _screen.value = screen
     }
 
 }

@@ -12,13 +12,14 @@ import com.example.appcourses.databinding.ActivityMainScreenBinding
 import com.example.appcourses.ui.fragment.AccountFragment
 import com.example.appcourses.ui.fragment.FavoritesFragment
 import com.example.appcourses.ui.fragment.HomeFragment
+import com.example.appсourses.ui.fragment.CourseFragment
 import com.example.appсourses.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainScreenBinding
-    val mainViewModel: MainScreenViewModel by viewModel()
+    private val mainViewModel: MainScreenViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,7 @@ class MainScreenActivity : AppCompatActivity() {
                     MainScreenViewModel.Screen.HOME -> HomeFragment()
                     MainScreenViewModel.Screen.FAVORITE -> FavoritesFragment()
                     MainScreenViewModel.Screen.ACCOUNT -> AccountFragment()
+                    MainScreenViewModel.Screen.COURSE -> CourseFragment()
                 }
                 loadFragment(fragment)
             }
