@@ -24,7 +24,7 @@ private val courseImages = listOf(
 )
 
 // Делегат для одного объекта в списке
-fun courseItemDelegate(onDetailsClick: () -> Unit) =
+fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
     adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
         ItemCourseBinding.inflate(inflater, parent, false)
     }) {
@@ -32,7 +32,7 @@ fun courseItemDelegate(onDetailsClick: () -> Unit) =
             item.hasLike = !item.hasLike
         }
         binding.bDetails.setOnClickListener {
-            onDetailsClick()
+            onDetailsClick(item)
         }
         bind {
             binding.tvTitle.text = item.title
@@ -52,7 +52,7 @@ fun courseItemDelegate(onDetailsClick: () -> Unit) =
 
 //Адаптер с помощью AdapterDelegates
 class CourseAdapter(
-    private var onDetailsClick: () -> Unit,
+    private val onDetailsClick: (Course) -> Unit,
 ) : ListDelegationAdapter<List<Course>>() {
     init {
         delegatesManager.addDelegate(courseItemDelegate(onDetailsClick))
@@ -63,18 +63,21 @@ class CourseAdapter(
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: CourseViewModel by viewModel()
+    private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
     private val courseAdapter =
-        CourseAdapter { screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE) }
+        CourseAdapter { course ->
+            screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
+            courseViewModel.selectCurse(course)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        viewModel.getCurses()
+        courseViewModel.getCurses()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listCourses.collect { list ->
+            courseViewModel.listCourses.collect { list ->
                 courseAdapter.items = list
                 courseAdapter.notifyDataSetChanged()
             }

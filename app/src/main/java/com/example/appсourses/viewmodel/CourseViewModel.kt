@@ -18,6 +18,21 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     private val _listCourses = MutableStateFlow(listOf<Course>())// <- Храниться список
     val listCourses: StateFlow<List<Course>> = _listCourses
 
+    private val _selectedCourse = MutableStateFlow<Course?>(null)
+    val selectedCourse : StateFlow<Course?> = _selectedCourse
+
+
+    fun selectCurse(course: Course){
+        viewModelScope.launch {
+            try {
+                _selectedCourse.value = course
+            }catch (e : Exception){
+                Log.e("LogViewModel", "Error: ${e.message}")
+            }
+        }
+    }
+
+
     fun getCurses(){
         viewModelScope.launch {
             try {
