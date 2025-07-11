@@ -2,6 +2,8 @@ package com.example.appcourses.ui.fragment
 
 import com.example.appcourses.R
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.core.widget.doAfterTextChanged
 
 private val courseImages = listOf(
     R.drawable.course1,
@@ -74,8 +77,37 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.listCoursesHome.adapter = courseAdapter
         courseViewModel.getCurses()
 
+        binding.bFilter.setOnClickListener {
+            courseViewModel.changeIsAsc()
+        }
+
+        //Если будет isAsc тру то отсартирует по воростанию (Выдаст сначала самые старые курсы, потом новые) если фадсе то наоборот
+        if (courseViewModel.isAsc.value){
+            courseViewModel.getCoursesFromDBOrderByASC()
+        } else {
+            courseViewModel.getCoursesFromDBOrderByDESC()
+        }
+
+        /*binding.editTSearchField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val query = s?.toString().orEmpty()
+                courseViewModel.getCoursesSearch(query)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })*/
+
+        //Ищет совпадение в text и в title с текстом editTSearchField каждый раз когда обновляется текст
+        binding.editTSearchField.doAfterTextChanged { editable ->
+            val query = editable?.toString().orEmpty()
+            courseViewModel.getCoursesSearch(query)
+        }
+
+        //Отображает и сообщаем все изменения в списке
         viewLifecycleOwner.lifecycleScope.launch {
             courseViewModel.listCourses.collect { list ->
                 courseAdapter.items = list

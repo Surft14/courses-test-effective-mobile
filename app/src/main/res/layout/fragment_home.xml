@@ -32,24 +32,27 @@
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:textColorHint="@color/black_light_text"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:contentDescription="@null"/>
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/bFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/black_light_light"
-                android:src="@drawable/ic_filter"/>
+                android:src="@drawable/ic_filter"
+                android:contentDescription="Buttin filter"/>
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listCoursesHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:contentDescription="List courses"/>
     </LinearLayout>
 
 </FrameLayout>

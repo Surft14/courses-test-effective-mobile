@@ -22,6 +22,12 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     val selectedCourse : StateFlow<Course?> = _selectedCourse
 
 
+    fun changeIsAsc(){
+        viewModelScope.launch {
+            _isAsc.value = !isAsc.value
+        }
+    }
+
     fun selectCurse(course: Course){
         viewModelScope.launch {
             try {
@@ -95,7 +101,6 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
                     .collect { list ->
                         _listCourses.value = list
                     }
-                _isAsc.value = false
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
             }
@@ -110,7 +115,6 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
                     .collect { list ->
                         _listCourses.value = list
                     }
-                _isAsc.value = true
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error: ${e.message}")
             }
