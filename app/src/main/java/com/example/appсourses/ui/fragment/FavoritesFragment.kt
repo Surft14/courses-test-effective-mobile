@@ -5,10 +5,88 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.appcourses.R
+import com.example.appcourses.databinding.FragmentFavoritesBinding
+import com.example.appcourses.databinding.ItemCourseBinding
+import com.example.appсourses.viewmodel.CourseViewModel
+import com.example.appсourses.viewmodel.MainScreenViewModel
+import com.example.data.dto.model.Course
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
+import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
+
+private val courseImages = listOf(
+    R.drawable.course1,
+    R.drawable.course2,
+    R.drawable.course3
+)
+
+// Делегат для одного объекта в списке
+private fun courseItemDelegateFavorite(onDetailsClick: (Course) -> Unit) =
+    adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
+        ItemCourseBinding.inflate(inflater, parent, false)
+    }) {
+        binding.bFavorite.setOnClickListener {
+            item.hasLike = !item.hasLike
+        }
+        binding.bDetails.setOnClickListener {
+            onDetailsClick(item)
+        }
+        bind {
+            binding.tvTitle.text = item.title
+            binding.tvText.text = item.text
+            binding.tvPrice.text = "${item.price}Р"
+            binding.tvRaiting.text = item.rate.toString()
+            binding.ivCourse.setImageResource(courseImages.random())
+            binding.bFavorite.setImageResource(
+                if (item.hasLike) {
+                    R.drawable.ic_bookmark_green
+                } else {
+                    R.drawable.ic_bookmark
+                }
+            )
+        }
+    }
+
+//Адаптер с помощью AdapterDelegates
+private class CourseAdapterFavorite(
+    private val onDetailsClick: (Course) -> Unit,
+) : ListDelegationAdapter<List<Course>>() {
+    init {
+        delegatesManager.addDelegate(courseItemDelegateFavorite(onDetailsClick))
+    }
+}
+
 
 class FavoritesFragment : Fragment() {
 
+    private lateinit var binding : FragmentFavoritesBinding
+    private val courseViewModel: CourseViewModel by viewModel()
+    private val screenViewModel: MainScreenViewModel by viewModel()
+    private val courseAdapter =
+        CourseAdapterFavorite { course ->
+            screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
+            courseViewModel.selectCurse(course)
+        }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentFavoritesBinding.inflate(layoutInflater)
+        binding.listFavorites.adapter = courseAdapter
+
+        //Отображает и сообщаем все изменения в списке
+        viewLifecycleOwner.lifecycleScope.launch {
+            courseViewModel.listCourses.collect { list ->
+                courseAdapter.items = list
+                courseAdapter.notifyDataSetChanged()
+            }
+        }
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -27,7 +27,7 @@ private val courseImages = listOf(
 )
 
 // Делегат для одного объекта в списке
-fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
+private fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
     adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
         ItemCourseBinding.inflate(inflater, parent, false)
     }) {
@@ -54,7 +54,7 @@ fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
     }
 
 //Адаптер с помощью AdapterDelegates
-class CourseAdapter(
+private class CourseAdapter(
     private val onDetailsClick: (Course) -> Unit,
 ) : ListDelegationAdapter<List<Course>>() {
     init {

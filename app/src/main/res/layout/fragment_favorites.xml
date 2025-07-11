@@ -21,10 +21,11 @@
             android:textSize="34sp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listFavorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_weight="1">
 
         </androidx.recyclerview.widget.RecyclerView>
 
