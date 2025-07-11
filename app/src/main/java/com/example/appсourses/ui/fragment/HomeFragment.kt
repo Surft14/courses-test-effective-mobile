@@ -20,7 +20,6 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private val courseImages = listOf(
     R.drawable.course1,
@@ -88,8 +87,6 @@ class HomeFragment : Fragment() {
 
         binding.listCoursesHome.layoutManager = LinearLayoutManager(context)
         binding.listCoursesHome.adapter = courseAdapter
-
-        courseViewModel.getCurses()
 
         binding.bFilter.setOnClickListener {
             courseViewModel.changeIsAsc()

@@ -17,7 +17,6 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private val courseImages = listOf(
     R.drawable.course1,
@@ -88,10 +87,9 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.listFavorites.layoutManager = LinearLayoutManager(context)
         binding.listFavorites.adapter = courseAdapter
-        courseViewModel.getFavoriteCourses()
         //Отображает и сообщаем все изменения в списке
         viewLifecycleOwner.lifecycleScope.launch {
-            courseViewModel.listCourses.collect { list ->
+            courseViewModel.favoriteCourses.collect { list ->
                 courseAdapter.items = list
                 courseAdapter.notifyDataSetChanged()
             }

@@ -9,7 +9,6 @@ import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentCourseBinding
 import com.example.appcourses.viewmodel.MainScreenViewModel
 import com.example.appcourses.viewmodel.CourseViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class CourseFragment : Fragment() {
@@ -26,7 +25,7 @@ class CourseFragment : Fragment() {
         val course = courseViewModel.selectedCourse.value
 
         binding.bFavorite.setOnClickListener {
-            courseViewModel.changeHasLike()
+            courseViewModel.changeHasLike(courseViewModel.selectedCourse.value)
         }
         binding.bFavorite.setImageResource(
             if (courseViewModel.selectedCourse.value!!.hasLike) {
