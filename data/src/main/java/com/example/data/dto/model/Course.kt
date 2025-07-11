@@ -17,12 +17,18 @@ data class Course(
 )
 
 fun Course.toEntity(): CourseEntity = CourseEntity(
-    id = id ?: 0,
+    id = id,
     title = title,
     text = text,
     price = price.replace(" ", "").toIntOrNull() ?: 0,
     rate = rate,
-    startDate = LocalDate.parse(startDate).atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000, // Конвертируем из String -> LocaleData -> Long
+    startDate = LocalDate.parse(startDate)
+        .atStartOfDay(ZoneId.systemDefault())
+        .toInstant()
+        .toEpochMilli(),
     hasLike = hasLike,
-    publishDate = LocalDate.parse(publishDate).atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000,
+    publishDate = LocalDate.parse(publishDate)
+        .atStartOfDay(ZoneId.systemDefault())
+        .toInstant()
+        .toEpochMilli()
 )

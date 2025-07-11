@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.data.dto.model.Course
 import java.io.Serializable
+import java.time.Instant
+import java.time.ZoneId
 
 //Таблица с курсами в бд Room
 @Entity(tableName = "courses")
@@ -25,7 +27,13 @@ fun CourseEntity.toDto(): Course = Course(
     text = text,
     price = price.toString(),
     rate = rate,
-    startDate = startDate.toString(),
+    startDate = Instant.ofEpochMilli(startDate)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+        .toString(),
     hasLike = hasLike,
-    publishDate = publishDate.toString()
+    publishDate = Instant.ofEpochMilli(publishDate)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate()
+        .toString()
 )
