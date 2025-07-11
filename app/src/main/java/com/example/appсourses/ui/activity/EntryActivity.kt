@@ -30,7 +30,7 @@ class EntryActivity : AppCompatActivity() {
             val email = binding.editEmail.text.toString()
             val password = binding.editPass.text.toString()
 
-            if (isValidEmail(email) && password.isNotBlank()) {
+            if (isValidEmail(email) && password.isNotBlank() && password.length >= 8) {
                 // Открываем MainScreenActivity
                 val intent = Intent(this, MainScreenActivity::class.java)
                 startActivity(intent)
