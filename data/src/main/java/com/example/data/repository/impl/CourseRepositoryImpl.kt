@@ -1,5 +1,6 @@
 package com.example.data.repository.impl
 
+import android.util.Log
 import com.example.data.database.db.courses.dao.CourseDao
 import com.example.data.database.db.courses.model.toDto
 import com.example.data.dto.model.Course
@@ -24,6 +25,7 @@ class CourseRepositoryImpl(
         // Конвертируем ResponseBody в JSON потом парсим его в CourseDto
         val coursesResponse = gson.fromJson(response, CoursesResponse::class.java)
         val listCourse = coursesResponse.courses
+        Log.i("LogRepository", "List : ${listCourse}")
         emit(listCourse)
     }
 

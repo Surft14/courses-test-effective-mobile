@@ -1,6 +1,8 @@
 package com.example.appcourses.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +67,8 @@ private class CourseAdapter(
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
     private val courseAdapter =
@@ -77,11 +80,14 @@ class HomeFragment : Fragment() {
             }
         )
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        binding.listCoursesHome.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.listCoursesHome.layoutManager = LinearLayoutManager(context)
         binding.listCoursesHome.adapter = courseAdapter
+
+        courseViewModel.getCurses()
 
         binding.bFilter.setOnClickListener {
             courseViewModel.changeIsAsc()
@@ -106,18 +112,20 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             courseViewModel.listCourses.collect { list ->
                 courseAdapter.items = list
+                Log.d("DEBUG", "List size: ${list.size}")
                 courseAdapter.notifyDataSetChanged()
             }
         }
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

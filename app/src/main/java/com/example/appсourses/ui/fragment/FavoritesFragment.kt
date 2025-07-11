@@ -85,7 +85,7 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.listFavorites.layoutManager = LinearLayoutManager(requireContext())
+        binding.listFavorites.layoutManager = LinearLayoutManager(context)
         binding.listFavorites.adapter = courseAdapter
         courseViewModel.getFavoriteCourses()
         //Отображает и сообщаем все изменения в списке

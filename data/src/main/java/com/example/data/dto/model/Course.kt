@@ -9,7 +9,7 @@ data class Course(
     val id: Int,
     val title: String,
     val text: String,
-    val price: Int,
+    val price: String,
     val rate: Double,
     val startDate: String,
     var hasLike: Boolean,
@@ -20,7 +20,7 @@ fun Course.toEntity(): CourseEntity = CourseEntity(
     id = id ?: 0,
     title = title,
     text = text,
-    price = price,
+    price = price.replace(" ", "").toIntOrNull() ?: 0,
     rate = rate,
     startDate = LocalDate.parse(startDate).atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000, // Конвертируем из String -> LocaleData -> Long
     hasLike = hasLike,

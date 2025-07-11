@@ -26,7 +26,6 @@ class MainScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainScreenBinding.inflate(layoutInflater)
-        courseViewModel.getCurses()
         enableEdgeToEdge()
         setContentView(binding.root)
 

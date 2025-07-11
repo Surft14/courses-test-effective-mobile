@@ -81,8 +81,11 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
         viewModelScope.launch {
             Log.i("LogViewModel", "START getCursesFromAPI")
             try {
-                val list =  courseRepository.getCourses()
-                _listCourses.value = list.first()
+                courseRepository.getCourses() // <- возвращает Flow<List<Course>>
+                    .collect { courses ->
+                        _listCourses.value = courses
+                    }
+                Log.i("LogViewModel", "List : ${_listCourses.value}")
                 for (course in _listCourses.value){
                     courseRepository.insertCourse(course)
                 }
@@ -115,6 +118,7 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
                 courseRepository.getFavoriteCourses()// <- берет из кэша / локальной базы данных
                     .collect { list ->
                         _listCourses.value = list
+                        Log.i("LogViewModel", "LIST getFavoriteCourses : ${list}")
                     }
             }catch (e : Exception){
                 Log.e("LogViewModel", "Error getFavoriteCourses: ${e.message}")
