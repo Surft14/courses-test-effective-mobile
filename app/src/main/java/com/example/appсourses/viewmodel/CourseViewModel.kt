@@ -51,7 +51,7 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
                 if (list.isEmpty()){
                     fetchCoursesFromNetworkIfNeeded()
                 } else{
-                    _listCourses.value = list
+                    _favoriteCourses.value = list
                 }
             }
         }
