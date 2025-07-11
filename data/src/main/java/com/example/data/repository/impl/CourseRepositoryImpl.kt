@@ -3,6 +3,7 @@ package com.example.data.repository.impl
 import com.example.data.database.db.courses.dao.CourseDao
 import com.example.data.database.db.courses.model.toDto
 import com.example.data.dto.model.Course
+import com.example.data.dto.model.CoursesResponse
 import com.example.data.dto.model.toEntity
 import com.example.data.network.CourseApi
 import com.example.data.repository.interfaces.CourseRepository
@@ -21,10 +22,8 @@ class CourseRepositoryImpl(
         //ResponseBody превращяем в String
         val response = api.getCourse().string()
         // Конвертируем ResponseBody в JSON потом парсим его в CourseDto
-        val listCourse: List<Course> = gson.fromJson(
-            response,
-            object : TypeToken<List<Course>>() {}.type
-        )
+        val coursesResponse = gson.fromJson(response, CoursesResponse::class.java)
+        val listCourse = coursesResponse.courses
         emit(listCourse)
     }
 

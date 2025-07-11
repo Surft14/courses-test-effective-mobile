@@ -13,6 +13,7 @@ import com.example.appcourses.ui.fragment.AccountFragment
 import com.example.appcourses.ui.fragment.CourseFragment
 import com.example.appcourses.ui.fragment.FavoritesFragment
 import com.example.appcourses.ui.fragment.HomeFragment
+import com.example.appcourses.viewmodel.CourseViewModel
 import com.example.appcourses.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,19 +21,20 @@ class MainScreenActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainScreenBinding
     private val mainViewModel: MainScreenViewModel by viewModel()
-
+    private val courseViewModel: CourseViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainScreenBinding.inflate(layoutInflater)
+        courseViewModel.getCurses()
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
+        }*/
 
         lifecycleScope.launchWhenStarted {
             mainViewModel.screen.collect { screen ->

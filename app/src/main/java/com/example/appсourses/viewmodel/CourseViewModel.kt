@@ -52,18 +52,25 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
             try {
                 _selectedCourse.value = course
             }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error selectCurse: ${e.message}")
             }
         }
     }
 
 
-    fun getCurses(){
+    fun getCurses() {
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCurses")
             try {
+                //Получаем из БД
+                var isDbEmpty = true
                 getCoursesFromDB()
-            }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                //Если база пуста — грузим из API
+                if (isDbEmpty) {
+                    getCursesFromAPI()
+                }
+            } catch (e: Exception) {
+                Log.e("LogViewModel", "Error getCurses: ${e.message}")
                 getCursesFromAPI()
             }
         }
@@ -72,6 +79,7 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     // Получения курсов из внешнего источника
     fun getCursesFromAPI() {
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCursesFromAPI")
             try {
                 val list =  courseRepository.getCourses()
                 _listCourses.value = list.first()
@@ -79,7 +87,7 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
                     courseRepository.insertCourse(course)
                 }
             }catch (e: Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getCursesFromAPI: ${e.message}")
             }
         }
     }
@@ -87,13 +95,14 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     // Получения курсов из кэша / локальной базы данных
     fun getCoursesFromDB(){
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCoursesFromDB")
             try {
                 courseRepository.getAllCourses()
                     .collect { list ->
                     _listCourses.value = list
                 }
             }catch (e: Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getCoursesFromDB: ${e.message}")
             }
         }
     }
@@ -101,13 +110,14 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     // Получения курсов отмеченных избранными
     fun getFavoriteCourses(){
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getFavoriteCourses")
             try{
                 courseRepository.getFavoriteCourses()// <- берет из кэша / локальной базы данных
                     .collect { list ->
                         _listCourses.value = list
                     }
             }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getFavoriteCourses: ${e.message}")
             }
         }
     }
@@ -115,13 +125,14 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     // Сортирует по убыванию
     fun getCoursesFromDBOrderByDESC(){
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCoursesFromDBOrderByDESC")
             try{
                 courseRepository.getCoursesSortedByDateDesc()// <- берет из кэша / локальной базы данных
                     .collect { list ->
                         _listCourses.value = list
                     }
             }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getCoursesFromDBOrderByDESC: ${e.message}")
             }
         }
     }
@@ -129,13 +140,14 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     //Сортирует по возростанию
     fun getCoursesFromDBOrderByASC(){
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCoursesFromDBOrderByASC")
             try{
                 courseRepository.getCoursesSortedByDateAsc()// <- берет из кэша / локальной базы данных
                     .collect { list ->
                         _listCourses.value = list
                     }
             }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getCoursesFromDBOrderByASC: ${e.message}")
             }
         }
     }
@@ -143,13 +155,14 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     //Ищет по словам в title и в text
     fun getCoursesSearch(search: String){
         viewModelScope.launch {
+            Log.i("LogViewModel", "START getCoursesSearch")
             try{
                courseRepository.getBySearchQuery(search)// <- берет из кэша / локальной базы данных
                     .collect { list ->
                         _listCourses.value = list
                     }
             }catch (e : Exception){
-                Log.e("LogViewModel", "Error: ${e.message}")
+                Log.e("LogViewModel", "Error getCoursesSearch: ${e.message}")
             }
         }
     }

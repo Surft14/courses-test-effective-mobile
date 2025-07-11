@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentHomeBinding
 import com.example.appcourses.databinding.ItemCourseBinding
@@ -79,29 +80,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.listCoursesHome.layoutManager = LinearLayoutManager(requireContext())
         binding.listCoursesHome.adapter = courseAdapter
-        courseViewModel.getCurses()
 
         binding.bFilter.setOnClickListener {
             courseViewModel.changeIsAsc()
-        }
-
-        //Если будет isAsc тру то отсартирует по воростанию (Выдаст сначала самые старые курсы, потом новые) если фадсе то наоборот
-        if (courseViewModel.isAsc.value) {
-            courseViewModel.getCoursesFromDBOrderByASC()
-        } else {
-            courseViewModel.getCoursesFromDBOrderByDESC()
-        }
-
-        /*binding.editTSearchField.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val query = s?.toString().orEmpty()
-                courseViewModel.getCoursesSearch(query)
+            //Если будет isAsc тру то отсартирует по воростанию (Выдаст сначала самые старые курсы, потом новые) если фадсе то наоборот
+            if (courseViewModel.isAsc.value) {
+                courseViewModel.getCoursesFromDBOrderByASC()
+            } else {
+                courseViewModel.getCoursesFromDBOrderByDESC()
             }
+        }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })*/
+
+
 
         //Ищет совпадение в text и в title с текстом editTSearchField каждый раз когда обновляется текст
         binding.editTSearchField.doAfterTextChanged { editable ->

@@ -57,8 +57,7 @@ dependencies {
     // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.android)
-    implementation(libs.koin.navigation)
-    implementation(libs.koin.androidx.viewmodel)
+
 
 
     // ViewModel

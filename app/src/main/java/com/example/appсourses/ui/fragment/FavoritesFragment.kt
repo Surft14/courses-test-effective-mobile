@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentFavoritesBinding
 import com.example.appcourses.databinding.ItemCourseBinding
@@ -84,8 +85,9 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.listFavorites.layoutManager = LinearLayoutManager(requireContext())
         binding.listFavorites.adapter = courseAdapter
-
+        courseViewModel.getFavoriteCourses()
         //Отображает и сообщаем все изменения в списке
         viewLifecycleOwner.lifecycleScope.launch {
             courseViewModel.listCourses.collect { list ->

@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
-        android:name="com.example.appсourses.MyApplication"
+        android:name="com.example.appcourses.MyApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +17,7 @@
             android:name=".ui.activity.MainScreenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.appсourses.ui.activity.EntryActivity"
+            android:name="com.example.appcourses.ui.activity.EntryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

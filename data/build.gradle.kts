@@ -63,6 +63,6 @@ dependencies {
     // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.android)
-    implementation(libs.koin.navigation)
+
 
 }
