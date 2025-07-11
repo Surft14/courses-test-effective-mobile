@@ -25,12 +25,15 @@ private val courseImages = listOf(
 )
 
 // Делегат для одного объекта в списке
-private fun courseItemDelegateFavorite(onDetailsClick: (Course) -> Unit) =
+private fun courseItemDelegateFavorite(
+    onDetailsClick: (Course) -> Unit,
+    onLikeClick: (Course) -> Unit
+) =
     adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
         ItemCourseBinding.inflate(inflater, parent, false)
     }) {
         binding.bFavorite.setOnClickListener {
-            item.hasLike = !item.hasLike
+            onLikeClick(item)
         }
         binding.bDetails.setOnClickListener {
             onDetailsClick(item)
@@ -53,10 +56,11 @@ private fun courseItemDelegateFavorite(onDetailsClick: (Course) -> Unit) =
 
 //Адаптер с помощью AdapterDelegates
 private class CourseAdapterFavorite(
-    private val onDetailsClick: (Course) -> Unit,
+    onDetailsClick: (Course) -> Unit,
+    onLikeClick : (Course) -> Unit,
 ) : ListDelegationAdapter<List<Course>>() {
     init {
-        delegatesManager.addDelegate(courseItemDelegateFavorite(onDetailsClick))
+        delegatesManager.addDelegate(courseItemDelegateFavorite(onDetailsClick, onLikeClick))
     }
 }
 
@@ -69,10 +73,15 @@ class FavoritesFragment : Fragment() {
     private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
     private val courseAdapter =
-        CourseAdapterFavorite { course ->
-            screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
-            courseViewModel.selectCurse(course)
-        }
+        CourseAdapterFavorite(
+            onDetailsClick = { course ->
+                screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
+                courseViewModel.selectCurse(course)
+            },
+            onLikeClick = { course ->
+                courseViewModel.changeHasLike(course)
+            }
+            )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
