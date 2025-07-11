@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentCourseBinding
+import com.example.appcourses.databinding.FragmentFavoritesBinding
 import com.example.appсourses.viewmodel.CourseViewModel
 import com.example.appсourses.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,19 +15,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CourseFragment : Fragment() {
 
 
-    private lateinit var binding: FragmentCourseBinding
+    private var _binding: FragmentCourseBinding? = null
+    private val binding get() = _binding!!
     private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentCourseBinding.inflate(layoutInflater)
 
         val course = courseViewModel.selectedCourse.value
 
         binding.bFavorite.setOnClickListener {
-            val course = courseViewModel.selectedCourse
-            course.value?.hasLike = !course.value!!.hasLike
+           courseViewModel.changeHasLike()
         }
 
         binding.bBack.setOnClickListener {
@@ -40,9 +40,14 @@ class CourseFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false)
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCourseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

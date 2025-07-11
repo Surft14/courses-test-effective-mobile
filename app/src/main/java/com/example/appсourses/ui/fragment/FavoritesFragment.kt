@@ -63,7 +63,9 @@ private class CourseAdapterFavorite(
 
 class FavoritesFragment : Fragment() {
 
-    private lateinit var binding : FragmentFavoritesBinding
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
+
     private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
     private val courseAdapter =
@@ -74,7 +76,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFavoritesBinding.inflate(layoutInflater)
         binding.listFavorites.adapter = courseAdapter
 
         //Отображает и сообщаем все изменения в списке
@@ -90,10 +91,15 @@ class FavoritesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

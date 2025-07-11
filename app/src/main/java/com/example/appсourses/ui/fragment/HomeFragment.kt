@@ -27,12 +27,12 @@ private val courseImages = listOf(
 )
 
 // Делегат для одного объекта в списке
-private fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
+private fun courseItemDelegate(onDetailsClick: (Course) -> Unit, onLikeClick: (Course) -> Unit) =
     adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
         ItemCourseBinding.inflate(inflater, parent, false)
     }) {
         binding.bFavorite.setOnClickListener {
-            item.hasLike = !item.hasLike
+            onLikeClick(item)
         }
         binding.bDetails.setOnClickListener {
             onDetailsClick(item)
@@ -55,10 +55,11 @@ private fun courseItemDelegate(onDetailsClick: (Course) -> Unit) =
 
 //Адаптер с помощью AdapterDelegates
 private class CourseAdapter(
-    private val onDetailsClick: (Course) -> Unit,
+    onDetailsClick: (Course) -> Unit,
+    onLikeClick: (Course) -> Unit,
 ) : ListDelegationAdapter<List<Course>>() {
     init {
-        delegatesManager.addDelegate(courseItemDelegate(onDetailsClick))
+        delegatesManager.addDelegate(courseItemDelegate(onDetailsClick, onLikeClick))
     }
 }
 
@@ -69,10 +70,13 @@ class HomeFragment : Fragment() {
     private val courseViewModel: CourseViewModel by viewModel()
     private val screenViewModel: MainScreenViewModel by viewModel()
     private val courseAdapter =
-        CourseAdapter { course ->
-            screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
-            courseViewModel.selectCurse(course)
-        }
+        CourseAdapter(
+            onLikeClick = { course -> courseViewModel.changeHasLike(course) },
+            onDetailsClick = { course ->
+                screenViewModel.itemSelected(MainScreenViewModel.Screen.COURSE)
+                courseViewModel.selectCurse(course)
+            }
+        )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,7 +89,7 @@ class HomeFragment : Fragment() {
         }
 
         //Если будет isAsc тру то отсартирует по воростанию (Выдаст сначала самые старые курсы, потом новые) если фадсе то наоборот
-        if (courseViewModel.isAsc.value){
+        if (courseViewModel.isAsc.value) {
             courseViewModel.getCoursesFromDBOrderByASC()
         } else {
             courseViewModel.getCoursesFromDBOrderByDESC()

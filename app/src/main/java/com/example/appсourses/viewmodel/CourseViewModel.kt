@@ -22,6 +22,25 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     val selectedCourse : StateFlow<Course?> = _selectedCourse
 
 
+    fun changeHasLike(){
+        viewModelScope.launch {
+            val course = _selectedCourse.value
+            if (course != null) {
+                val updated = course.copy(hasLike = !course.hasLike)
+                _selectedCourse.value = updated
+                courseRepository.updateCourse(updated)
+            }
+        }
+    }
+
+    fun changeHasLike(course: Course) {
+        viewModelScope.launch {
+            val updated = course.copy(hasLike = !course.hasLike)
+            courseRepository.updateCourse(updated)
+            // обновить StateFlow, если нужно
+        }
+    }
+
     fun changeIsAsc(){
         viewModelScope.launch {
             _isAsc.value = !isAsc.value
