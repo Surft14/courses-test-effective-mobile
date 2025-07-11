@@ -1,24 +1,22 @@
 package com.example.appcourses.ui.fragment
 
-import com.example.appcourses.R
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentHomeBinding
 import com.example.appcourses.databinding.ItemCourseBinding
-import com.example.appсourses.viewmodel.CourseViewModel
-import com.example.appсourses.viewmodel.MainScreenViewModel
+import com.example.appcourses.viewmodel.MainScreenViewModel
+import com.example.appcourses.viewmodel.CourseViewModel
 import com.example.data.dto.model.Course
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.core.widget.doAfterTextChanged
 
 private val courseImages = listOf(
     R.drawable.course1,

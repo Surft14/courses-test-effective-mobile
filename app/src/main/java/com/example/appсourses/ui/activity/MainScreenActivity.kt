@@ -10,10 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import com.example.appcourses.R
 import com.example.appcourses.databinding.ActivityMainScreenBinding
 import com.example.appcourses.ui.fragment.AccountFragment
+import com.example.appcourses.ui.fragment.CourseFragment
 import com.example.appcourses.ui.fragment.FavoritesFragment
 import com.example.appcourses.ui.fragment.HomeFragment
-import com.example.appсourses.ui.fragment.CourseFragment
-import com.example.appсourses.viewmodel.MainScreenViewModel
+import com.example.appcourses.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenActivity : AppCompatActivity() {
@@ -36,7 +36,7 @@ class MainScreenActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             mainViewModel.screen.collect { screen ->
-                val fragment = when(screen){
+                val fragment = when (screen) {
                     MainScreenViewModel.Screen.HOME -> HomeFragment()
                     MainScreenViewModel.Screen.FAVORITE -> FavoritesFragment()
                     MainScreenViewModel.Screen.ACCOUNT -> AccountFragment()
@@ -46,7 +46,7 @@ class MainScreenActivity : AppCompatActivity() {
             }
         }
 
-        binding.bottomNavigation.setOnItemSelectedListener{
+        binding.bottomNavigation.setOnItemSelectedListener {
             mainViewModel.onNavigationItemSelected(it.itemId)
             true
         }

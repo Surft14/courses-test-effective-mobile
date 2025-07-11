@@ -1,4 +1,4 @@
-package com.example.appсourses.ui.fragment
+package com.example.appcourses.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.appcourses.R
 import com.example.appcourses.databinding.FragmentCourseBinding
-import com.example.appcourses.databinding.FragmentFavoritesBinding
-import com.example.appсourses.viewmodel.CourseViewModel
-import com.example.appсourses.viewmodel.MainScreenViewModel
+import com.example.appcourses.viewmodel.MainScreenViewModel
+import com.example.appcourses.viewmodel.CourseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CourseFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.appсourses.ui.activity
+package com.example.appcourses.ui.activity
 
 import android.content.Intent
 import android.net.Uri

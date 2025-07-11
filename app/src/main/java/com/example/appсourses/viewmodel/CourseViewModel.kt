@@ -1,4 +1,4 @@
-package com.example.appсourses.viewmodel
+package com.example.appcourses.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
