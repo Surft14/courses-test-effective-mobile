@@ -7,6 +7,8 @@ import com.example.data.dto.model.Course
 import com.example.data.repository.interfaces.CourseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
 
 class CourseViewModel(private val courseRepository: CourseRepository) : ViewModel() {
@@ -34,7 +36,11 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
         viewModelScope.launch {
             courseRepository.getAllCourses()
                 .collect { list ->
-                    _listCourses.value = list
+                    if (list.isEmpty()){
+                        fetchCoursesFromNetworkIfNeeded()
+                    } else{
+                        _listCourses.value = list
+                    }
                 }
         }
     }
@@ -42,7 +48,25 @@ class CourseViewModel(private val courseRepository: CourseRepository) : ViewMode
     private fun observeFavorites() {
         viewModelScope.launch {
             courseRepository.getFavoriteCourses().collect { list ->
-                _favoriteCourses.value = list
+                if (list.isEmpty()){
+                    fetchCoursesFromNetworkIfNeeded()
+                } else{
+                    _listCourses.value = list
+                }
+            }
+        }
+    }
+
+    fun fetchCoursesFromNetworkIfNeeded() {
+        viewModelScope.launch {
+            try {
+                val remoteCourses = courseRepository.getCourses()
+                // Сохраняем в Room
+                remoteCourses.first().forEach { courseRepository.insertCourse(it) }
+                _listCourses.value = remoteCourses.first()
+                // Room сам обновит StateFlow через observeAllCourses()
+            } catch (e: Exception) {
+                Log.e("LogViewModel", "Error fetchCoursesFromNetworkIfNeeded: ${e.message}")
             }
         }
     }
