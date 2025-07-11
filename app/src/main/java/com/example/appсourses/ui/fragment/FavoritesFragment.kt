@@ -27,7 +27,7 @@ private val courseImages = listOf(
 // Делегат для одного объекта в списке
 private fun courseItemDelegateFavorite(
     onDetailsClick: (Course) -> Unit,
-    onLikeClick: (Course) -> Unit
+    onLikeClick: (Course) -> Unit,
 ) =
     adapterDelegateViewBinding<Course, Course, ItemCourseBinding>({ inflater, parent ->
         ItemCourseBinding.inflate(inflater, parent, false)
@@ -57,7 +57,7 @@ private fun courseItemDelegateFavorite(
 //Адаптер с помощью AdapterDelegates
 private class CourseAdapterFavorite(
     onDetailsClick: (Course) -> Unit,
-    onLikeClick : (Course) -> Unit,
+    onLikeClick: (Course) -> Unit,
 ) : ListDelegationAdapter<List<Course>>() {
     init {
         delegatesManager.addDelegate(courseItemDelegateFavorite(onDetailsClick, onLikeClick))
@@ -81,7 +81,7 @@ class FavoritesFragment : Fragment() {
             onLikeClick = { course ->
                 courseViewModel.changeHasLike(course)
             }
-            )
+        )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,7 +100,7 @@ class FavoritesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root

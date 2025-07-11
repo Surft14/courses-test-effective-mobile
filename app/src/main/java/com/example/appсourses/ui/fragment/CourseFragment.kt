@@ -26,8 +26,15 @@ class CourseFragment : Fragment() {
         val course = courseViewModel.selectedCourse.value
 
         binding.bFavorite.setOnClickListener {
-           courseViewModel.changeHasLike()
+            courseViewModel.changeHasLike()
         }
+        binding.bFavorite.setImageResource(
+            if (courseViewModel.selectedCourse.value!!.hasLike) {
+                R.drawable.ic_bookmark_green
+            } else {
+                R.drawable.ic_bookmark_black
+            }
+        )
 
         binding.bBack.setOnClickListener {
             screenViewModel.itemSelected(MainScreenViewModel.Screen.HOME)
@@ -40,7 +47,7 @@ class CourseFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCourseBinding.inflate(inflater, container, false)
         return binding.root
