@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivCourseF"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
@@ -128,7 +128,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tvTextF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Описание"
