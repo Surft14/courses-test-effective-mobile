@@ -123,7 +123,7 @@
                 android:id="@+id/tvOKurse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="О курсе"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

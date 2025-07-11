@@ -10,14 +10,15 @@ import com.example.appcourses.databinding.FragmentCourseBinding
 import com.example.appcourses.viewmodel.MainScreenViewModel
 import com.example.appcourses.viewmodel.CourseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class CourseFragment : Fragment() {
 
 
     private var _binding: FragmentCourseBinding? = null
     private val binding get() = _binding!!
-    private val courseViewModel: CourseViewModel by viewModel()
-    private val screenViewModel: MainScreenViewModel by viewModel()
+    private val courseViewModel: CourseViewModel by activityViewModel()
+    private val screenViewModel: MainScreenViewModel by activityViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

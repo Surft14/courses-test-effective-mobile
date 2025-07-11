@@ -16,6 +16,7 @@ import com.example.data.dto.model.Course
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private val courseImages = listOf(
@@ -70,8 +71,8 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private val courseViewModel: CourseViewModel by viewModel()
-    private val screenViewModel: MainScreenViewModel by viewModel()
+    private val courseViewModel: CourseViewModel by activityViewModel()
+    private val screenViewModel: MainScreenViewModel by activityViewModel()
     private val courseAdapter =
         CourseAdapterFavorite(
             onDetailsClick = { course ->

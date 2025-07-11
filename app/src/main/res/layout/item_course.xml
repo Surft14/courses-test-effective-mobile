@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemCourse"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/black_light">
 
     <LinearLayout
@@ -12,9 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="vertical"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/black_light_light"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,20 +30,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/course1"
                 app:shapeAppearanceOverlay="@style/TopRoundedImage"
-                />
+                app:srcCompat="@drawable/course1" />
 
             <LinearLayout
                 android:id="@+id/infoRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/black_light_light_info"
                 android:orientation="horizontal"
-                android:padding="6dp"
-                android:layout_marginBottom="5dp">
+                android:padding="6dp">
 
 
                 <ImageView
@@ -57,11 +56,11 @@
                     android:id="@+id/tvRaiting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="4.9"
-                    android:textSize="14sp"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -70,19 +69,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/black_light_light_info"
                 android:orientation="horizontal"
-                android:padding="6dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="50dp">
+                android:padding="6dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
                     android:text="22 Мая 2024"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:layout_marginStart="12dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <ImageButton

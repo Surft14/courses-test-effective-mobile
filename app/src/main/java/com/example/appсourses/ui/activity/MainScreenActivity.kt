@@ -3,8 +3,6 @@ package com.example.appcourses.ui.activity
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.appcourses.R
@@ -28,6 +26,7 @@ class MainScreenActivity : AppCompatActivity() {
         binding = ActivityMainScreenBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -35,7 +34,7 @@ class MainScreenActivity : AppCompatActivity() {
             insets
         }*/
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenCreated {
             mainViewModel.screen.collect { screen ->
                 val fragment = when (screen) {
                     MainScreenViewModel.Screen.HOME -> HomeFragment()
