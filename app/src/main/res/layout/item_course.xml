@@ -11,7 +11,7 @@
         android:id="@+id/CourseCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="25dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/black_light_light"
         android:orientation="vertical"
@@ -152,7 +152,7 @@
                     android:layout_marginStart="160dp"
                     android:layout_marginEnd="10dp"
                     android:background="@color/none"
-                    android:text="Details ->"
+                    android:text="Details"
                     android:textColor="@color/green"
                     android:textColorLink="@color/none"
                     android:textSize="12sp" />
